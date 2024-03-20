@@ -3,7 +3,7 @@
 
 The spaceship Titanic is about a fictional mystery where a spaceship collides with an anomaly, resulting in the disappearance of half of the passengers on board. We aim to help rescue the crew and passengers by predicting which passengers were transported by the anomaly based on records recovered from the spaceship’s damaged computer system.
 
-<img width="270" alt="Picture1" src="https://github.com/TOFWAQ/Kaggle_Challenge/assets/37884436/c4340d72-7a6f-4e87-a499-f40e68ccc667">
+<img width="600" height="400" alt="Picture1" src="https://github.com/TOFWAQ/Kaggle_Challenge/assets/37884436/c4340d72-7a6f-4e87-a499-f40e68ccc667">
 
 ## Tools
 - Goggle Colab Notebook,
@@ -122,6 +122,38 @@ plt.show()
 ```
 
 ![gradient](https://github.com/TOFWAQ/Kaggle_Challenge/assets/37884436/5020a1ed-20df-4289-8c69-2f252eeb2fdb)
+
+### Explainable AI
+```ruby
+import shap
+
+
+# The fitted GBC and X feature set
+explainer = shap.TreeExplainer(modelll)
+shap_values = explainer.shap_values(X)
+
+# Calculate the MA SHAP value for each feature
+mean_shap_value = np.mean(np.abs(shap_values), axis=0)
+
+# Color map  based on their y-value
+c_map = plt.get_cmap("coolwarm")
+
+# Normalize the SHAP values to the range [0, 1] for color mapping
+norm = plt.Normalize(vmin=mean_shap_value.min(), vmax=mean_shap_value.max())
+color = c_map(norm(mean_shap_value))
+
+
+#Plot the SHAP
+plt.barh(X.columns, mean_shap_value, color=color)
+plt.xticks(rotation=90)
+
+# Add a color bar to the plot
+cbar = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=c_map))
+cbar.set_label('SHAP Value')
+
+plt.show()
+```
+![xai](https://github.com/TOFWAQ/Kaggle_Challenge/assets/37884436/15730837-bf16-427f-b4f4-78d3f099960a)
 
 
 
